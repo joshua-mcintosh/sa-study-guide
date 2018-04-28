@@ -1,0 +1,171 @@
+#+TITLE: Studying TCP/IP Illustrated, Volume 1
+#+AUTHOR: Joshua McIntosh
+#+OPTIONS: tex:t
+
+* Introduction
+  TCP/IP created to connect different network compositions, i.e. /inter/-networking
+  Additionally,
+
+  - facilitates communication despite loss of networks/gateways
+  - support multiple types of services
+  - accommodate a variety of networks
+  - permit distributed management of it's resources
+  - cost-effective
+  - connect hosts with little effort
+  - must be accountable
+
+** Architecture principles
+*** Packets, Connections, and Datagrams                 :datagrams:important:
+    In the '60s, networks were circuit-oriented. Since then, we have:
+    - *Packet switching*: 'chunking', allowing for multiplexing, resilience and
+      better network utilization.
+    - Some networks are *FCFS/FIFO* -- (efficient, but unpredictable; example
+      ethernet) others have *time-division multiplexing* -- reserving time for
+      all connections but may leave networks underutilized.
+    - *datagrams*: a type of packet identifying source and destination.
+      + Requires larger packets
+      + Sets up dumber, simpler switches allowing a connectionless network.
+      + Foundation for modern networks/internets/the Internet
+** Design/Impl (OSI)
+*** Layering                                                      :important:
+   +-------------------------+------------------------------------------------------------+------------------------+
+   | layer                   | description                                                | example                |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   | All networked devices                                                                                         |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   | Physical                | Connectors, data rates, encoding, frequencies.             | 1000 BASE-T            |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   | Link                    | Media Access controls, error detection.                    | Ethernet MAC addresses |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   | Network/inter-network   | communicating multihop across different types of networks. | IP datagram, X.25 PLP. |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   | Host-only layers                                                                                              |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   | Transport               | methods for connections/associations betw programs.        | TCP/UDP                |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   |                         | Sometimes incl's reliable delivery, if not impl elsewhere  |                        |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   | Session                 | methods for multiple connections forming a 'session',      | ISO X.225              |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   |                         | incl closing/resarting conections and checkpointing.       |                        |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   | Presentation            | Specifies method for data formats/translation rules.       | EBCDIC to ASCII        |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   |                         | Sometimes incl's encryption.                               |                        |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   | Application             | Specifies methods for user-initiated tasks.                | Skype, FTP, DNS        |
+   +-------------------------+------------------------------------------------------------+------------------------+
+   |                         | Built by application programmers/developers.               |                        |
+   +-------------------------+------------------------------------------------------------+------------------------+
+*** (|De-)Multiplexing and Encapsulation
+    - Layering allows for *protocol multiplexing*, such that different protocols can exist on the same infra.
+    - *Encapsulation* allows for wrapping data in protocol data units (PDUs), such that each PDU contains the next plus
+      identifying information for it's layer (Such as ethernet MAC address, IP Address, or TCP port number).
+    The combination of these allows for data to easily transition across multiple mediums as needed.
+** Design/Impl (TCP/IP)                                           :important:
+   Mostly the same as OSI but with layers filled in and added:
+  +--------+-------------------+---------------------------------------------------------------------------+--------------------+
+  | Number | Name              | Application                                                               | Example            |
+  +--------+-------------------+---------------------------------------------------------------------------+--------------------+
+  |      7 | Application       | internet-capable apps.                                                    | Web/DNS/DHCP       |
+  +--------+-------------------+---------------------------------------------------------------------------+--------------------+
+  |      4 | Transport         | Provides exchange of data between 'ports' owned by applications.          | TCP/UDP            |
+  +--------+-------------------+---------------------------------------------------------------------------+--------------------+
+  |    3.5 | Network (adjunct) | 'unofficial'. helper protocols.                                           | ICMP, IGMP, IPsec. |
+  +--------+-------------------+---------------------------------------------------------------------------+--------------------+
+  |      3 | Network           | Defines datagrams and routing.                                            | IP/IPv6.           |
+  +--------+-------------------+---------------------------------------------------------------------------+--------------------+
+  |    2.5 | Link (Adjunct)    | 'unofficial'. Maps addresses in the network with those at the link-layer. | ARP                |
+  +--------+-------------------+---------------------------------------------------------------------------+--------------------+
+
+Multiplexing/Encapsulation is discussed in terms of Ethernet(MAC) -> IPv4(IP Addr) -> TCP(port #) -> Application(DNS/Web).
+** Designing applications
+*** Client/Server
+    Iterative (synchronous) and Concurrent servers, Peer-to-Peer, and APIs.
+* Internet Address Architecture 
+  Internet devices connected to a network will generally have 1 or more IP Addresses.
+  +------------------+---------------------------------------------------------------------------------------------------------+
+  | *IPv4 Addresses* | - expressed in a four-tuple: like 123.456.789.012.                                                      |
+  |                  | - IPv4 has 4,294,967,296 possible addresses                                                             |
+  +------------------+---------------------------------------------------------------------------------------------------------+
+  | *Ipv6 Addresses* | - expressed in four-hexidecimal-digit blocks: like 5f05:2000:80ad:5800:58:800:2023:1d71.                |
+  |                  |   Lack of digits in an IPv6 block indicate leading zeros -- the :58:800: above is actually :0058:0800:. |
+  |                  | - IPv6 has 340,282,366,920,938,463,463,374,607,431,768,211,456 possible addresses                       |
+  +------------------+---------------------------------------------------------------------------------------------------------+
+** Basic IP Address Structure
+*** Class-full Addressing
+    Classfull addressing was a scheme where the address space for IPv4 was
+    divided up by the ARIN into separate 'classes', which dictate their size.
+    Below is a table naming the classes and sizes. Note, these classes are
+    out of favor in preference for CIDR.
+    +-------+--------------+---------------+-------------+------------+
+    | Class | Leading Bits | CIDR (prefix) | Description | % of Total |
+    +-------+--------------+---------------+-------------+------------+
+    | A     |            0 | /8            | Unicast     |        50% |
+    +-------+--------------+---------------+-------------+------------+
+    | B     |           10 | /16           | Unicast     |        25% |
+    +-------+--------------+---------------+-------------+------------+
+    | C     |          110 | /24           | Unicast     |      12.5% |
+    +-------+--------------+---------------+-------------+------------+
+    | D     |          N/A | N/A           | Multicast   |      6.25% |
+    +-------+--------------+---------------+-------------+------------+
+    | E     |          N/A | N/A           | Reserved    |      6.25% |
+    +-------+--------------+---------------+-------------+------------+
+*** Subnetting
+    Subnetting takes the classfull network allocated and reserves some
+    host-bits to make internal networks.
+
+    Lets say you have a Class-A network 8.0.0.0. Class A means the first 8
+    bits name the network externally -- in this case, the "8" grouping.
+
+    00001000 00000000 00000000 00000000
+
+    The remaining 24 bits are allocated towards naming hosts on the network.
+    Alternatively, you could instead reserve bits from the host address towards
+    private networks. For example: lets say you wanted to divide it into two
+    networks. You could reserve one bit of the host portion to create a subnet
+    mask of:
+    
+    11111111 10000000 00000000 00000000
+
+    Using this mask, you would have two networks: 8.0.0.0 and 8.128.0.0. Each
+    bit allocated to the subnet id provides 2**N subnets, with each subnet providing
+    2**(32-N-network bits) - 2 addresses (The two addresses each name the network ID and
+    broadcast address, respectively).
+*** Broadcast address
+    A broadcast address is an address that allows all hosts to receive the
+    datagram, assuming a host has not disabled this functionality. The broadcast address
+    is formed by taking the network portion of the IP address and OR it with the
+    compliment of the subnet mask. 
+
+    If the subnet mask is 11111111 10000000 00000000 00000000 (255.128.0.0),
+    the compliment is     00000000 01111111 11111111 11111111 (0.127.255.255).
+    If the address is     00001000 00000000 00000000 00000001 (8.0.0.1)
+    with the subnet mask above,
+    then the broadcast is 00001000 01111111 11111111 11111111 (8.127.255.255).
+*** Classless Inter-Domain Routing (CIDR)                         :important:
+    In the '90s, we realized that networks would be exhausted at some point in
+    the near future give the classful scheme of the day. Additionally, the
+    more networks being allocated, the heavier the global routing table got.
+
+    To address this, internet routing was extended to support
+    *Classless Inter-Domain Routing*, or *CIDR*. CIDR allows for allocating
+    networks containing more tahn 255 hosts but fewer than 65,536. With CIDR,
+    an address range isn't a part of a class, but instead includes a CIDR mask,
+    like a subnet mask or a *prefix*. The upshot of this is that we could make
+    finer-grained network allocations.
+*** Aggregation
+    Aggregation is a method to keep the routing table of the internet small. To do this,
+    routes that were adjacent are combined per router into a larger prefix. For example:
+
+    consider networks 190.154.27.0/26, 190.154.27.64/26, and 190.154.27.192/26.
+
+    - .0 and .64 are adjacent networks (a /26 contains 64 addresses), and so can
+    be aggregated to *190.154.27.0/25*. 
+    - 190.154.27.0/25 is not adjacent to 190.154.27.192/26, so an adjacent route
+    190.154.27.128/26 is added to consideration and combined with .192 for
+    190.154.27.128/25.
+    - 190.154.27.0/25 and 190.154.27.128/25 are adjacent and combine to 190.154.27.0/24.
+    - This can further be combined with 190.154.26.0/24 to create aggregate route
+      109.154.26.0/23, covering the whole address space.
+
