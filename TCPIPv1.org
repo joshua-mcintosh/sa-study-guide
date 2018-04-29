@@ -234,3 +234,18 @@ Multiplexing/Encapsulation is discussed in terms of Ethernet(MAC) -> IPv4(IP Add
 **** 
 ** Wireless LANS--IEEE 802.11 (Wi-Fi)
 ** (other topics)
+* ARP 
+* IP
+* DHCP
+* Firewalls and Network Address Translation (NAT)
+* ICMPv4 / v6
+* Broadcast and Local multicasting (IGmP and MLD)
+* UDP and IP fragmentation
+* DNS
+* TCP (preliminaries)
+* TCP Connection Management
+* TCP Timeout and Retransmission
+* TCP Data flow and window management
+* TCP Congestion Control
+* TCP Keepalive
+* Security: EAP, IPsec, TLS, DNSSEC, and DKIM
