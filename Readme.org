@@ -1,0 +1,11 @@
+* SA-study guide
+Hello! I've opened up this repository as a means to study and share what I
+learn (well, record) with the world. It's still small, and frankly I don't
+know how much time I have to study just yet!
+
+I plan on adding my notes here incrementally. I'm planning to cover (at least)
+the following topics:
+
+- [[file:TCPIPv1.org][TCP/IP (Via TCP/IP Illustrated, Volume 1: The Protocols)]]
+- [[file:python.org::*Where%20can%20I%20practice%20my%20python%20skills?][Python]]
+- [[file:linux.org][Linux/Unix internals]]
