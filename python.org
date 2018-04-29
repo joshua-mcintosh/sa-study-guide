@@ -1,0 +1,97 @@
+#+TITLE: Studying the Python programming language
+#+AUTHOR: Joshua McIntosh
+
+
+
+* Introduction
+  :LOGBOOK:
+  CLOCK: [2018-04-29 Sun 15:49]--[2018-04-29 Sun 16:14] =>  0:25
+  :END:
+  Mostly going to be writing down concepts, facets of the language etc. My day
+  to day is in python2.7, though I'll try to post python3* differences when
+  possible/when I see them. PRs welcome if found.
+
+** Language basics
+*** Statements vs expressions
+    A *Statement* is a portion of python code with enough information to be
+    evaluated by the interpreter.
+
+    #+BEGIN_SRC python 
+    print 'Hello, world'
+    #+END_SRC
+
+    Is a statement.
+
+    An *expression* is a piece of python code, including literal values,
+    variables, function calls and operators that evaluate to a final value.
+    Using the above, the following are all expressions:
+
+    #+BEGIN_SRC python 
+    5
+    "Hello, World!"
+    "foobar".upcase()
+    some_function(5)
+    #+END_SRC
+
+    All of the above could, in theory, be referred to as a statement as well,
+    but most would be nonsensical in a script. It would make more sense to do
+    something with the values listed:
+
+    #+BEGIN_SRC python 
+    the_var = 5
+    ready = 0
+    for i in range(5):
+        ready += i
+    
+    print "How ready? %s" % ready
+    #+END_SRC
+*** Referential programming
+    Python is a programming language that mostly operates on a reference basis.
+    In some languages, statements and function calls create a copy of the data being passed in.
+    An example of this may be C or Go (assuming the passed value wasn't a pointer)
+*** Basic data types
+    python's basic data types include:
+    - None: a lack of data or empty reference
+    - bools: True and False
+    - integers: whole-number representations for numbers.
+    - floats: fractional numbers represented in decimal notation
+    - strings: Representations of text, quoted in various ways.
+      #+BEGIN_SRC python 
+      'a string'
+      "also a string"
+      """Another string"""
+      #+END_SRC
+** Containers of the python language
+   (Not an exhaustive list)
+*** Basic containers: Lists and dictionaries
+    Two of the building blocks of python scripting are *lists* and *dictionaries*. 
+**** Lists
+     :LOGBOOK:
+     CLOCK: [2018-04-29 Sun 16:34]
+     :END:
+     A list in python is an ordered sequence of expressions. It is denoted with
+     straight braces.
+     #+BEGIN_SRC python
+     a_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+     #+END_SRC
+
+     A list item can be accessed by taking the reference to the list (or a list
+     literal) and suffixing it with an index wrapped in straight braces. Note
+     that in python, as in many other languages, lists are zero-indexed --
+     meaning the first element in the list is at index zero. There are a few
+     other ways of accessing an index of a list, including using a negative-
+     number to index from the end of the list. 
+     #+BEGIN_SRC python
+     a_list = [0, 1, 2, 3, 4]
+     first_item = a_list[0]
+     last_item = a_list[-1]
+     #+END_SRC
+
+     In addition, lists have some inherent functions; these are covered [[https://docs.python.org/2.7/tutorial/datastructures.html#more-on-lists][here]].
+**** Dictionaries
+     Dictionaries are data structures that store key-value pairs in an
+     easily-referenced manner. Dictionaries, or 'dicts', are expressed with curly-braces.
+
+     #+BEGIN_SRC python
+     the_dict = {'foo': 1, 'bar': 2, 'baz': 3}
+     #+END_SRC
