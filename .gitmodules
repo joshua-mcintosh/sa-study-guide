@@ -1,0 +1,3 @@
+[submodule "linux-sysadmin-interview-questions"]
+	path = linux-sysadmin-interview-questions
+	url = git@github.com:chassing/linux-sysadmin-interview-questions.git
