@@ -3,6 +3,7 @@
 
 
 
+
 * Introduction
   :LOGBOOK:
   CLOCK: [2018-04-29 Sun 15:49]--[2018-04-29 Sun 16:14] =>  0:25
@@ -10,7 +11,20 @@
   Mostly going to be writing down concepts, facets of the language etc. My day
   to day is in python2.7, though I'll try to post python3* differences when
   possible/when I see them. PRs welcome if found.
+** FAQ
+*** Where can I practice my python skills? 
+    Python can be used all over!
 
+    - Is there any sort of task you wish you could automate on your
+    computer? It's possible someone has already written some module for that task!
+    If so, you can use it to make life easier for you, *and* you can read the
+    code to better understand the language!
+    - Perhaps there's an online service you use? If you desire, python can be
+    used to interact with that service's API (Application Programming Interface)
+    if you are up to it.
+    - Maybe programming puzzles are more your thing? If so, there are many
+    websites out there that can test our mettle. Though I have barely scratched
+    the surface, I have used [[http://exercism.io/][Exercism.io]] and enjoyed it.
 ** Language basics
 *** Statements vs expressions
     A *Statement* is a portion of python code with enough information to be
