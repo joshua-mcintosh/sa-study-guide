@@ -9,3 +9,15 @@ the following topics:
 - [[file:TCPIPv1.org][TCP/IP (Via TCP/IP Illustrated, Volume 1: The Protocols)]]
 - [[file:python.org::*Where%20can%20I%20practice%20my%20python%20skills?][Python]]
 - [[file:linux.org][Linux/Unix internals]]
+
+I've also included a reference to a fork of [[https://github.com/chassing/linux-sysadmin-interview-questions][linux-sysadmin-interview-questions]].
+I created the fork just so I have a copy of the repo that I could (if I chose
+to) commit answers to. I may also just keep copys of the answers local and fold
+that fork. We'll see :smile: .
+
+If you're reading this on GitHub, know that the documents I'm writing are in
+[[https://orgmode.org/][org-mode]]. I don't have much experience per-se, but I am getting more experience
+with emacs, org-mode and magit by way of [[http://spacemacs.org/][spacemacs]]. It's not for everyone, but
+I've found it fun to learn and work with. Whether you normally run vim, already
+keep your own emacs configs or prefer a different editor, there's plenty of
+potential that you'd find something you like.
