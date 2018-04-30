@@ -1,0 +1,11 @@
+#+TITLE: Linux / UNIX systems
+#+AUTHOR: Joshua McIntosh
+
+* Introduction
+* Basics
+* Starting/stopping a System
+* Executing Programs
+* I/O
+* Exploring Filesystems
+* Configuration Management (in this case, puppet)
+  Perhaps this deserves it's own doc?
