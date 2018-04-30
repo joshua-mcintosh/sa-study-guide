@@ -75,6 +75,7 @@
       "also a string"
       """Another string"""
       #+END_SRC
+*** Flow-control/Loops 
 ** Containers of the python language
    (Not an exhaustive list)
 *** Basic containers: Lists and dictionaries
@@ -109,3 +110,8 @@
      #+BEGIN_SRC python
      the_dict = {'foo': 1, 'bar': 2, 'baz': 3}
      #+END_SRC
+*** Iterative containers
+**** range
+**** enumerate
+**** generator expressions
+** Composing programs: Functions, Classes and Modules
